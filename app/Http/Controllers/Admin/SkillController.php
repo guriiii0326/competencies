@@ -5,11 +5,21 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\JobClass;
+
 class SkillController extends Controller
 {
     //
     public function create(Request $request){
-        return redirect('admin.skill.create');
+        $jobclass = new JobClass;
+        $form = $request->all();
+        
+        unset($form['_token']);
+        
+        $jobclass->fill($form);
+        $jobclass->save();
+        
+        return view('admin/skill/create');
     }
     
     public function add(){

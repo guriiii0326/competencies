@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class JobClassTable extends Migration
+class CreateJobClassesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,12 @@ class JobClassTable extends Migration
     {
         //
         Schema::create('job_classes', function(Blueprint $table){
-            $table->bigIncrements('id');
-            
-        })
+            $table->increments('id');
+            $table->string('title');
+            $table->string('category');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -28,5 +31,9 @@ class JobClassTable extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('job_classes');
+        Schema::table('job_classes', function(Blueprint $table){
+            $table->dropColumn('title', 'category');
+        });
     }
 }
